@@ -9,6 +9,8 @@ using Stripe.Checkout;
 
 namespace server.Controllers
 {
+ 
+    [NewtonsoftJsonSnakeCaseFormatterAttribute]
     public class PaymentsController : Controller
     {
         public readonly IOptions<StripeOptions> options;

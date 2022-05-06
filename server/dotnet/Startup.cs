@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
 using Stripe;
 
 namespace server
@@ -42,13 +37,18 @@ namespace server
                 options.Domain = Environment.GetEnvironmentVariable("DOMAIN");
             });
 
-            services.AddControllersWithViews().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = new DefaultContractResolver
-                {
-                    NamingStrategy = new SnakeCaseNamingStrategy(),
-                };
-            });
+
+
+
+            services.AddControllersWithViews(); // or...
+
+            // services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            // {
+            //     options.SerializerSettings.ContractResolver = new DefaultContractResolver
+            //     {
+            //         NamingStrategy = new SnakeCaseNamingStrategy(),
+            //     };
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,9 +70,11 @@ namespace server
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                
+                // endpoints.MapControllerRoute(
+                //     name: "default",
+                //     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
