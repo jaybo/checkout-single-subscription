@@ -11,6 +11,7 @@ namespace server.Controllers
 {
  
     [NewtonsoftJsonSnakeCaseFormatterAttribute]
+    [ApiController]
     public class PaymentsController : Controller
     {
         public readonly IOptions<StripeOptions> options;
